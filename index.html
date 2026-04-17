@@ -68,7 +68,7 @@
 
   /* ─── HERO ────────────────────────────── */
   #hero {
-    display:flex; flex-direction:column;
+    flex-direction:column;
     align-items:center; justify-content:center;
     min-height: 100vh;
     text-align:center;
@@ -76,6 +76,7 @@
     position: relative;
     overflow:hidden;
   }
+  #hero.active { display:flex; }
   .hero-orb {
     position:absolute; top:-20%; left:50%; transform:translateX(-50%);
     width:600px; height:600px; border-radius:50%;
@@ -468,9 +469,9 @@
 <nav>
   <div class="nav-logo">Assume Your Dream</div>
   <div class="nav-links">
-    <a href="#" onclick="showSection('hero')">Home</a>
-    <a href="#" onclick="showSection('modules')">Training</a>
-    <a href="#" onclick="tryQuiz()">Test</a>
+    <a href="javascript:void(0)" onclick="showSection('hero')">Home</a>
+    <a href="javascript:void(0)" onclick="showSection('modules')">Training</a>
+    <a href="javascript:void(0)" onclick="tryQuiz()">Test</a>
   </div>
 </nav>
 
@@ -874,7 +875,9 @@ let state = {
 function showSection(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  window.scrollTo(0,0);
+  window.scrollTo({top: 0, left: 0, behavior: 'instant'});
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
   if (id === 'modules') renderModules();
   if (id === 'quiz') initQuiz();
   if (id === 'results') showResults();
